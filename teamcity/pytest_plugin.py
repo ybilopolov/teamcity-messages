@@ -24,6 +24,8 @@ from teamcity import diff_tools
 
 diff_tools.patch_unittest_diff()
 
+OUTPUT = sys.stdout
+
 
 def fetch_diff_error_from_message(err_message):
     line_with_diff = None
@@ -91,7 +93,7 @@ class EchoTeamCityMessages(object):
         self.coverage_controller = coverage_controller
         self.output_capture_enabled = output_capture_enabled
 
-        self.teamcity = TeamcityServiceMessages()
+        self.teamcity = TeamcityServiceMessages(output=OUTPUT)
         self.test_start_reported_mark = set()
 
         self.max_reported_output_size = 1 * 1024 * 1024
