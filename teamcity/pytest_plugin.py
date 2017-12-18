@@ -283,18 +283,13 @@ class EchoTeamCityMessages(object):
                 self.report_test_finished(test_id, duration)
             else:
                 if self.report_has_output(report):
-                    block_name = "test " + report.when
-                    self.teamcity.blockOpened(block_name, flowId=test_id)
                     self.report_test_output(report, test_id)
-                    self.teamcity.blockClosed(block_name, flowId=test_id)
         elif report.failed:
             if report.when == 'call':
                 self.report_test_failure(test_id, report)
             elif report.when == 'setup':
                 if self.report_has_output(report):
-                    self.teamcity.blockOpened("test setup", flowId=test_id)
                     self.report_test_output(report, test_id)
-                    self.teamcity.blockClosed("test setup", flowId=test_id)
 
                 self.report_test_failure(test_id, report, message="test setup failed", report_output=False)
             elif report.when == 'teardown':
